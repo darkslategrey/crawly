@@ -114,7 +114,7 @@ defmodule ManagerTest do
 
     Process.sleep(100)
     assert_receive {:performing_request, reqs}
-    assert [%{url: url}, "Incorrect request"] = reqs
+    assert [%{url: url, meta: %{meta_key: "meta_value"}}, "Incorrect request"] = reqs
     assert url == "https://www.example.com/blog.html"
   end
 end
@@ -165,7 +165,7 @@ defmodule Manager.StartRequestsTestSpider do
   def init() do
     [
       start_requests: [
-        Crawly.Request.new("https://www.example.com/blog.html"),
+        Crawly.Request.new("https://www.example.com/blog.html", [], [], %{meta_key: "meta_value"}),
         "Incorrect request"
       ]
     ]
